@@ -1,0 +1,36 @@
+# Earwig Voice Memo Daemon - systemd user service
+#
+# Installation:
+#   1. Build the binary: cargo build --release
+#   2. Copy binary: sudo cp target/release/earwig /usr/local/bin/
+#   3. Copy service: cp earwig.service ~/.config/systemd/user/
+#   4. Enable service: systemctl --user enable earwig
+#   5. Start service: systemctl --user start earwig
+#   6. View logs: journalctl --user -u earwig -f
+#
+# Note: Make sure your user is in the 'input' group to access /dev/input devices:
+#   sudo usermod -a -G input $USER
+#   (then log out and back in)
+
+[Unit]
+Description=Earwig Voice Memo Daemon
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/earwig
+Restart=always
+RestartSec=5
+
+# Optional: Set environment variables here instead of config file
+# Environment="MEMO_MOUSE_DEVICE=/dev/input/by-id/usb-PixArt_USB_Optical_Mouse-event-mouse"
+# Environment="MEMO_AUDIO_DEVICE=default"
+# Environment="MEMO_OUTPUT_DIR=/home/user/voice-memos"
+# Environment="MEMO_WHISPER_URL=http://localhost:9000/transcribe"
+# Environment="MEMO_NTFY_TOPIC=https://ntfy.sh/my-secret-topic"
+
+# Logging level (trace, debug, info, warn, error)
+Environment="RUST_LOG=earwig=info"
+
+[Install]
+WantedBy=default.target
