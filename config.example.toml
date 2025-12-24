@@ -1,0 +1,22 @@
+# Voice Memo Daemon Configuration
+# Copy to ~/.config/voice-memo/config.toml and edit
+
+# Path to the dedicated mouse device
+# Find with: ls -la /dev/input/by-id/
+mouse_device = "/dev/input/by-id/usb-PixArt_USB_Optical_Mouse-event-mouse"
+
+# ALSA audio input device
+# Find with: arecord -L
+# Use "default" for system default, or specific like "hw:1,0"
+audio_device = "default"
+
+# Directory to save WAV files (will be created if missing)
+output_dir = "/home/user/voice-memos"
+
+# Whisper server endpoint
+# Adjust path/format to match your server's API
+whisper_url = "http://localhost:9000/transcribe"
+
+# ntfy.sh topic URL
+# Can be ntfy.sh hosted or self-hosted
+ntfy_topic = "https://ntfy.sh/my-secret-voice-memos"
